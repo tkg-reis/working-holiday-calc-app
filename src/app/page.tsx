@@ -1,30 +1,90 @@
+"use client";
+
+
+import Header from "./components/Header"
+import Footer from "./components/Footer"
+import { ChangeEvent, useEffect, useState } from "react"
+import dotenv from "dotenv";
+dotenv.config();
+import axios from "axios";
+
+
+
+
 export default function Home() {
+
+  const [error, setError] = useState("");
+
+  // 語学学校の有無
+  const [joinSchool, setJoinSchool] = useState(false);
+  // 軍資金の状態管理
+  const [data, setData] = useState<number | string>();
+  
+  const joinSchoolInfo = () => {
+    setJoinSchool(bool => !bool);
+    console.log(joinSchool);
+  }
+  
+  // // 軍資金の状態管理
+  // const [travelMoney, setTravelMoney] = useState(null);
+  // const moneyInfo = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setTravelMoney(e.target.value);
+  //   console.log(travelMoney);
+  // }
+  
+  useEffect(() => {
+    
+    const getData = async() : Promise<any> => {
+      try {
+        const API_KEY : any= process.env.NEXT_PUBLIC_EXCHANGE_RATES_API;
+        
+        // 基本一円から他の外貨情報を取得している。
+        // ex.jpy 1円 => euro  
+        const url = `https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=JPY&to_currency=EUR&apikey=${API_KEY}`;
+
+        // エンドポイントの変更
+        // const endpoint = 'latest';
+        const res = await axios.get(url);
+        // setData(res.request.response);
+        setData(res.request.responseText);
+        console.log(res);
+        console.log(data);
+        
+        
+      } catch (error) {
+        setError("Error occurred");
+      }
+    }
+
+    // getData();
+  }, []);
+
+  
   return (
     <>
-      <header>
-        <h2>ワーキングホリデー充実度計算アプリ</h2>
-      </header>
+      <Header/>
       <main>
-        <div>
+        <div className="p-3">
           <label htmlFor="age">年齢</label>
-          <input type="number" id="age"/>歳
+          <input type="number" id="age" onChange={() =>{}}/>歳
         </div>
-        <div>
+        <div className="p-3">
           <label htmlFor="money">軍資金</label>
-          <input type="number" id="money"  />万円
+          <input type="number" id="money" onChange={() => {}}  />万円
         </div>
-        <div>
+        <div className="p-3">
           <label htmlFor="time">滞在期間</label>
           <input type="number" id="time" />か月
         </div>
-        <div>
+        <div className="p-3">
           <label htmlFor="school">語学学校の有無</label>
-          <input type="radio" name="school" id="school" />あり
-          <input type="radio" name="school" id="school" />なし
+          <input type="radio" name="school" id="school" className="px-2" value="true" onClick={joinSchoolInfo}/>あり
+          <input type="radio" name="school" id="school" value="false" onClick={joinSchoolInfo}/>なし
         </div>
-        <div>
+        <p>{data}</p>
+        <div className="p-3">
           <label htmlFor="countries">ワーキングホリデで行きたい国</label>
-          <select id="countries" name="countries">
+          <select id="countries" name="countries" className="px-2">
             <option value="australia">オーストラリア</option>
             <option value="canada">カナダ</option>
             <option value="new-zealand">ニュージーランド</option>
@@ -57,8 +117,8 @@ export default function Home() {
           </select>
         </div>
         <div>
-          <label htmlFor="english-level">英語力</label>
-          <input type="number" id="english-level" />/100
+          <label htmlFor="english-level" className="px-2">英語力 -自己評価- </label>
+          <input type="number" id="english-level" className=""/>/100
         </div>
         <div>
           <label htmlFor="parttime-work">アルバイトの有無</label>
@@ -67,13 +127,14 @@ export default function Home() {
         </div>
         <div>
           <p>↓結果を表示する↓</p>
-          <button type="submit">結果！！！</button>
+          <button className="bg-slate-300 rounded-lg p-4 hover:text-white" type="submit" onSubmit={() => {}}>結果！！！</button>
         </div>
         <div>
           <h2>あなたは、○○でしょう！！</h2>
           <p>あなたは○○でしょう！そのため、</p>
         </div>
       </main>
+      <Footer/>
     </>
   )
 }

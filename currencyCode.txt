@@ -1,0 +1,21 @@
+currency code
+
+KRW=>korea
+AUD=>australia
+CAD=>canada
+CZK=>czech republic
+ERN=>eritrean
+GBP=>british
+HKD=>hongkong
+HUF=>hungary
+ISK=>iceland
+ARS=>argentina
+NOK=>norway
+NZD=>newzealand
+PLN=>poland
+SEK=>sweden
+TWD=>newTaiwan
+ANG=>netherlands
+UYU=>uruguay
+CLP=>chile
+EUR=>germany,france..etc
