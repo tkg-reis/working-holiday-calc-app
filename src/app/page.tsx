@@ -1,39 +1,68 @@
 "use client";
-
-
 import Header from "./components/Header"
 import Footer from "./components/Footer"
 import { ChangeEvent, useEffect, useState } from "react"
 import dotenv from "dotenv";
 dotenv.config();
 import axios from "axios";
-
-
-
+import { RadioButton } from "./types";
 
 export default function Home() {
 
+  // 例外処理のアラート管理
   const [error, setError] = useState("");
 
-  // 語学学校の有無
-  const [joinSchool, setJoinSchool] = useState(false);
+  // 年齢の状態管理
+  const [age, setAge] = useState<string | number>("");
+  const ageInfo = (e: { target: { value: number; }; }) => {
+    if(e.target.value < 30) {
+      return;
+    } else if (e.target.value > 31) {
+      setError("ごめんなさい！あなたはワーキングホリデーには行ける年齢ではありません");
+    } else {
+      setError("error occurred");
+    }
+    
+  }
   // 軍資金の状態管理
-  const [data, setData] = useState<number | string>();
+  // 入力時のエラー解消
+  const [travelMoney, setTravelMoney] = useState("");
+  const moneyInfo = (e: ChangeEvent<HTMLInputElement>) => {
+    setTravelMoney(e.target.value);
+    console.log(travelMoney);
+  }
+
+  // 滞在期間の状態管理
+  const [stayTime, setStayTime] = useState<number | string>();
+  const stayTimeInfo = (e : ChangeEvent<HTMLInputElement>) => {
+    setStayTime(e.target.value);
+    console.log(stayTime);
+    
+  }
+
   
-  const joinSchoolInfo = () => {
-    setJoinSchool(bool => !bool);
+  // 語学学校の有無
+  const [joinSchool, setJoinSchool] = useState<boolean | string>(true);
+  const joinSchoolInfo = (e: { target: { value: string | boolean | ((prevState: string | boolean) => string | boolean); }; }) => {
+    setJoinSchool(e.target.value);
     console.log(joinSchool);
   }
+
+  const RadioInfo :RadioButton[] =[
+    {
+      value:true, 
+      schoolLabel: "あり"
+    },
+    {
+      value: false,
+      schoolLabel: "なし"
+    }
+  ];
   
-  // // 軍資金の状態管理
-  // const [travelMoney, setTravelMoney] = useState(null);
-  // const moneyInfo = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setTravelMoney(e.target.value);
-  //   console.log(travelMoney);
-  // }
   
+  // 為替レートのデータ状態管理
+  const [data, setData] = useState<number | string>();
   useEffect(() => {
-    
     const getData = async() : Promise<any> => {
       try {
         const API_KEY : any= process.env.NEXT_PUBLIC_EXCHANGE_RATES_API;
@@ -48,18 +77,14 @@ export default function Home() {
         // setData(res.request.response);
         setData(res.request.responseText);
         console.log(res);
-        console.log(data);
-        
-        
       } catch (error) {
         setError("Error occurred");
       }
     }
-
     // getData();
+    // 副作用に「結果を表示」のonSubmitと紐付ける。
   }, []);
 
-  
   return (
     <>
       <Header/>
@@ -70,7 +95,7 @@ export default function Home() {
         </div>
         <div className="p-3">
           <label htmlFor="money">軍資金</label>
-          <input type="number" id="money" onChange={() => {}}  />万円
+          <input type="number" id="money" onChange={moneyInfo}  />万円
         </div>
         <div className="p-3">
           <label htmlFor="time">滞在期間</label>
@@ -78,8 +103,14 @@ export default function Home() {
         </div>
         <div className="p-3">
           <label htmlFor="school">語学学校の有無</label>
-          <input type="radio" name="school" id="school" className="px-2" value="true" onClick={joinSchoolInfo}/>あり
-          <input type="radio" name="school" id="school" value="false" onClick={joinSchoolInfo}/>なし
+          {RadioInfo.map(radio => {
+            return (
+              <div>
+                <input type="radio" checked={joinSchool === radio.value} name="school" id="school" className="px-2" onChange={joinSchoolInfo}/>
+                <span>{radio.schoolLabel}</span>
+              </div>
+              )
+            })}
         </div>
         <p>{data}</p>
         <div className="p-3">
