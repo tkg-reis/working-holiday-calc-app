@@ -7,6 +7,9 @@ const Header = () => {
       <h1>ワーキングホリデー充実度計算アプリ</h1>
       <ul className="flex justify-center items-center">
         <li className="mx-3">
+          <Link href="/">home</Link>
+        </li>
+        <li className="mx-3">
           <Link href="/about">about</Link>
         </li>
         <li className="mx-3">
