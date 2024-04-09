@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputCountry = (outputCountry : any) => {
+const OutputCountry = ({outputCountry} : any) => {
     // ここで為替レートAPIを噛ませる
     // データベースが貯まり次第、国別ランキングを作っても面白そう
     

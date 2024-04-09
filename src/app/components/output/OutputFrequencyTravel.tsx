@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputFrequencyTravel = (outputFrequecyTravel : any) => {
+const OutputFrequencyTravel = ({outputFrequecyTravel} : any) => {
   return (
     <>
       <h2>あなたの入力値</h2>
