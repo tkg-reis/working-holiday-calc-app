@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputYourAge = (outputYourAge : any) => {
+const OutputYourAge = ({outputYourAge} : any) => {
   return (
     // 18~22 => お金を貯めるか親を使いましょう
     // 23~26 => ...

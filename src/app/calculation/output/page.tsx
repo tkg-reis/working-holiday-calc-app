@@ -42,11 +42,11 @@ const Output = () => {
           <div>アルバイト：{values.parttimeWork}</div>
           <OutputPartTimeWork outputPartTime={values.parttimeWork}/>
           <div>語学学校：{values.languageSchool}</div>
-          <OutputLanguageSchool outputLanguageSchool={values.language}/>
+          <OutputLanguageSchool outputLanguageSchool={values.languageSchool}/>
           <div>自炊：{values.cook}</div>
           <OutputCook outputCook={values.cook}/>
           <div>海外旅行頻度：{values.travel}</div>
-          <OutputFrequencyTravel outputFrequencyTravel={values.frequencyTravel}/>
+          <OutputFrequencyTravel outputFrequencyTravel={values.travel}/>
         </>
       )}
     </>

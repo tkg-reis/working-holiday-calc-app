@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputTravelMoney = (outputTravelMoney : any) => {
+const OutputTravelMoney = ({outputTravelMoney} : any) => {
   return (
     <>
       <h2>あなたの入力値</h2>

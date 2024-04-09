@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputLanguageSchool = (outputLanguageSchool : any) => {
+const OutputLanguageSchool = ({outputLanguageSchool} : any) => {
   return (
     <>
       <h2>あなたの入力値</h2>

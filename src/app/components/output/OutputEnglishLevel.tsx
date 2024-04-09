@@ -1,6 +1,6 @@
 import React from 'react'
 
-const OutputEnglishLevel = (outputEnglishLevel : any) => {
+const OutputEnglishLevel = ({outputEnglishLevel} : any) => {
     // 一般的な必要語学レベルの提示 ex, toeic ielt
   return (
     <>
