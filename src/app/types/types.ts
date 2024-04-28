@@ -17,3 +17,8 @@ export interface dataType {
     language_school : number;
     frequency_travel : number;
 }
+
+export interface titleAndDescriptionType {
+    title : string;
+    description : string;
+}
